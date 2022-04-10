@@ -44,6 +44,7 @@ function playRound(playerSelection, computerSelection) {
 function game(winningScore = 3) {
   let playerScore = 0;
   let computerScore = 0;
+  alert(`First to ${winningScore} wins!`);
   
   while(playerScore < winningScore && computerScore < winningScore) {
     const roundResult = playRound(userPlay(), computerPlay());
@@ -64,7 +65,7 @@ function game(winningScore = 3) {
     alert(`${roundResult}\nYou ${playerScore} : ${computerScore} Computer`);
   }
 
-  alert((playerScore === 5) ? "YOU WIN THE GAME!" : "YOU LOSE THE GAME!");
+  alert((playerScore === winningScore) ? "YOU WIN THE GAME!" : "YOU LOSE THE GAME!");
   return;
 }
 
