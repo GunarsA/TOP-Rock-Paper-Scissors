@@ -7,11 +7,27 @@ function computerPlay() {
 }
 
 function userPlay() {
-  const userInput = prompt("Enter your move!").toLowerCase();
-  return userInput.charAt(0).toUpperCase() + userInput.slice(1);
+  let userInput = prompt("Enter your move!");
+  if(userInput === null) {
+    return userInput;
+  }
+  userInput = userInput.charAt(0).toUpperCase() + userInput.slice(1).toLowerCase();
+
+  while(userInput !== "Rock" && userInput !== "Paper" && userInput !== "Scissors") {
+    userInput = prompt("Unrecognized move, enter again!");
+    if(userInput === null) {
+      return userInput;
+    }
+    userInput = userInput.charAt(0).toUpperCase() + userInput.slice(1).toLowerCase();
+  }
+
+  return userInput;
 }
 
 function playRound(playerSelection, computerSelection) {
+  if(playerSelection === null){
+    return playerSelection;
+  }
   if(playerSelection === "Rock" && computerSelection === "Scissors"
     || playerSelection === "Paper" && computerSelection === "Rock"
     || playerSelection === "Scissors" && computerSelection === "Paper") {
@@ -24,3 +40,32 @@ function playRound(playerSelection, computerSelection) {
   }
   return "Tie!";
 }
+
+function game(winningScore = 3) {
+  let playerScore = 0;
+  let computerScore = 0;
+  
+  while(playerScore < winningScore && computerScore < winningScore) {
+    const roundResult = playRound(userPlay(), computerPlay());
+    if(roundResult === null){
+      alert("GAME CANCELED!");
+      return;
+    }
+
+    if(roundResult.length !== 4) {
+        if(roundResult.charAt(4) === 'W') {
+          playerScore++;
+        }
+        else {
+          computerScore++;
+        }
+    }
+
+    alert(`${roundResult}\nYou ${playerScore} : ${computerScore} Computer`);
+  }
+
+  alert((playerScore === 5) ? "YOU WIN THE GAME!" : "YOU LOSE THE GAME!");
+  return;
+}
+
+game();
